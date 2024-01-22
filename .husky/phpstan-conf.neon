@@ -1,0 +1,12 @@
+includes:
+    - ./ergebnis.neon
+    - ../apps/api/vendor/phpstan/phpstan-doctrine/extension.neon
+parameters:
+    level: 9
+    excludePaths:
+        - ../apps/api/src/OpenApi/Parameter.php
+    paths:
+        - ../apps/api/src
+    # doctrine:
+    #     objectManagerLoader: ../apps/api/tests/object-manager.php
+    checkGenericClassInNonGenericObjectType: false

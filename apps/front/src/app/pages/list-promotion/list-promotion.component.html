@@ -1,0 +1,43 @@
+<div class="container mt-5">
+  <div class="text-center">
+    <h1>Liste des Promotions</h1>
+  </div>
+  <table class="text-center table table-responsive mt-5">
+    <thead>
+      <tr>
+        <th scope="col">Nom de la promotion</th>
+        <th scope="col">Date de début</th>
+        <th scope="col">Date de fin</th>
+        <th scope="col">Capacité</th>
+        <th scope="col">Detail</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      <tr *ngFor="let promotion of promotions">
+        <td>{{ promotion.name }}</td>
+        <td>{{ promotion.startDate | date: "dd/MM/yyyy" }}</td>
+        <td>{{ promotion.endDate | date: "dd/MM/yyyy" }}</td>
+        <td>{{ promotion.students.length }}</td>
+        <td>
+          <a
+            [routerLink]="[promotion.id]"
+            class="btn btn-primary text-dark btn btn-outline-dark m-1"
+            >Detail</a
+          >
+          <a
+            *ngIf="currentUser?.roles?.includes('ROLE_ADMIN')"
+            [routerLink]="['../edit-promotions', promotion.id]"
+            class="btn btn-primary text-dark btn btn-outline-dark m-1"
+            >Modifier</a
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-pagination
+  [currentPage]="currentPage"
+  [totalPages]="totalPages"
+  (pageChanged)="loadPromotions($event)"
+></app-pagination>

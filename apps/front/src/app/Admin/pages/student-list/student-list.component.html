@@ -1,0 +1,53 @@
+<div class="container mt-5">
+  <div class="text-center">
+    <h1>Liste des Étudiants</h1>
+  </div>
+
+  <table class="table mt-4">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nom et Prénom</th>
+        <th scope="col">Mail</th>
+        <th scope="col">Promotion</th>
+        <th scope="col">Statut</th>
+        <th scope="col">Détails</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="students.length === 0; else studentRows">
+        <tr>
+          <td colspan="5">Aucun étudiant.</td>
+        </tr>
+      </ng-container>
+
+      <ng-template #studentRows>
+        <tr *ngFor="let student of students">
+          <th scope="row">
+            {{ student.user.firstname }} {{ student.user.lastname }}
+          </th>
+          <td>{{ student.user.email }}</td>
+          <td>{{ student.promotion.name }}</td>
+          <td>{{ student.state }}</td>
+          <td>
+            <a
+              [routerLink]="['/admin/student-detail', student.id]"
+              class="btn btn-primary text-dark btn btn-outline-dark m-1"
+              >Détail</a
+            >
+            <a
+              [routerLink]="['/admin/student-delete', student.id]"
+              class="btn btn-primary text-dark btn btn-outline-dark"
+              >Supprimer</a
+            >
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+</div>
+
+<app-pagination
+  [currentPage]="currentPage"
+  [totalPages]="totalPages"
+  (pageChanged)="loadStudents($event)"
+></app-pagination>

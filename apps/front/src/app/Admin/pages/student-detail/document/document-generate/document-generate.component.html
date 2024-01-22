@@ -1,0 +1,23 @@
+<div class="row mt-3">
+  <div class="col-md-3">
+    <select
+      class="form-select"
+      [(ngModel)]="selectedDocumentType"
+      (change)="onDocumentTypeChange()"
+    >
+      <option value="contract">Contrat</option>
+      <option value="admissionCertificate">Certificat d'admission</option>
+      <option value="certificateOfAttendance">Certificat de présence</option>
+      <option value="certificateOfEnrollment">Certificat d'inscription</option>
+      <option value="codeOfConduct">Code de conduite</option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <button
+      class="btn btn-primary text-dark btn btn-outline-dark"
+      (click)="generateDocument()"
+    >
+      Générer
+    </button>
+  </div>
+</div>

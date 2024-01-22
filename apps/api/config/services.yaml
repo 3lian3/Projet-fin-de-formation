@@ -1,0 +1,45 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+  App\Service\PdfGeneratorService:
+    autowire: true
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    bind:
+      $studentsFilesystem: '@gaufrette.students_filesystem'
+  acme_api.event.jwt_created_listener:
+    class: App\EventListener\JWTCreatedListener
+    tags:
+        - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
+  App\EventListener\EntityAttendanceListener:
+    tags:
+        - { name: doctrine.orm.entity_listener, entity: 'App\EventListener\EntityAttendanceListener', event: prePersist }
+  App\EventListener\EntityAdviceListener:
+    tags:
+        - { name: doctrine.orm.entity_listener, entity: 'App\EventListener\EntityAdviceListener', event: prePersist }
+  App\EventListener\EntityAttendanceTeacherListener:
+    tags:
+        - { name: doctrine.orm.entity_listener, entity: 'App\EventListener\EntityAttendanceTeacherListener', event: prePersist }
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  App\:
+    resource: "../src/"
+    exclude:
+      - "../src/DependencyInjection/"
+      - "../src/Entity/"
+      - "../src/Kernel.php"
+  # add more service definitions when explicit configuration is needed
+  # please note that last definitions always *replace* previous ones
+    
+  app.cookie_clearing_logout_handler:
+    class: Symfony\Component\Security\Http\Logout\CookieClearingLogoutHandler
+    arguments: [{ 'BEARER': { 'path': '/logout', 'domain': null, 'secure': false, 'samesite': 'lax' } }]
+
+  

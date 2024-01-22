@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>
+			{% block title %}Création de votre mot de passe
+			{% endblock %}
+		</title>
+	</head>
+	<body>
+		<p>Bienvenue à la New School,<br><br>
+
+			Afin de pouvoir accéder à votre espace personnel, merci de cliquer sur le lien suivant pour créer votre mot de passe.<br><br>
+			<a href="{{ front_base_url }}/reset/{{ resetToken.token }}">{{ front_base_url }}/reset/{{ resetToken.token }}</a>
+			<br><br>
+
+			Attention un mot de passe est personnel, ne le communiquez à personne et conservez le précieusement.</p><br>
+
+		<p>Ce lien expireras automatiquement dans
+			{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+
+	</body>
+</html>

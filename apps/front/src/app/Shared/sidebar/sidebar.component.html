@@ -1,0 +1,32 @@
+<div class="bg-dark-subtle h-100">
+  <div class="text-center">
+    <img
+      src="../../../assets/img/user-profile-icon-free-vector.jpg"
+      alt="profil-picture"
+      class="img-fluid rounded-circle mt-4"
+      width="200"
+      height="200"
+    />
+    <h1 class="text-center">hello</h1>
+    <h2 *ngIf="user">{{ user.firstname }} {{ user.lastname }}</h2>
+    <ul class="nav flex-column">
+      <li *ngFor="let link of links" class="nav-item">
+        <i class="bi bi-{{ link.icon }}"></i>
+        <a
+          [routerLink]="[link.url]"
+          class="nav-link active"
+          aria-current="page"
+          href="#"
+          >{{ link.name }}</a
+        >
+      </li>
+    </ul>
+    <button
+      class="btn btn-primary text-dark btn btn-outline-dark mt-4"
+      type="button"
+      (click)="this.logout()"
+    >
+      <i class="bi bi-door-open-fill">Deconnexion</i>
+    </button>
+  </div>
+</div>

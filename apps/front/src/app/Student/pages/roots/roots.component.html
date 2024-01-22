@@ -1,0 +1,26 @@
+<div class="page-container container-fluid">
+  <div class="row h-100">
+    <div class="col-3 d-none d-md-block">
+      <app-sidebar [links]="links"></app-sidebar>
+    </div>
+    <div class="col">
+      <button
+        (click)="openMobileSidebar(mobileSidebarContainer)"
+        class="btn btn-primary btn btn-primary text-dark btn btn-outline-dark d-block d-md-none"
+      >
+        <i class="bi bi-list"></i>
+      </button>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<ng-template #mobileSidebarContainer let-offcanvas>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="offcanvas.dismiss('Cross click')"
+  ></button>
+  <app-sidebar [links]="links"></app-sidebar>
+</ng-template>

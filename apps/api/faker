@@ -1,0 +1,17 @@
+<?php 
+require '../../vendor/autoload.php';
+require_once '/path/to/Faker/src/autoload.php';
+
+$faker = Faker\Factory::create();
+
+echo $faker->firstName();
+echo $faker->lastName();
+echo $faker->email();
+echo $faker->password();
+
+for ($i = 0; $i < 3; $i++) {
+    echo $faker->name() . "\n";
+}
+?>
+```
+    

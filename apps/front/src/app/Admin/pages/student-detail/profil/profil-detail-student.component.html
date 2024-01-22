@@ -1,0 +1,267 @@
+<div class="container">
+  <form [formGroup]="editForm">
+    <label class="p-2" for="gender">Genre *</label>
+    <div class="form-check">
+      <input
+        required
+        type="radio"
+        id="hommeRadio"
+        value="Homme"
+        class="form-check-input"
+        formControlName="gender"
+      />
+      <label class="form-check-label" for="hommeRadio">Homme</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        required
+        type="radio"
+        id="femmeRadio"
+        value="Femme"
+        class="form-check-input"
+        formControlName="gender"
+      />
+      <label class="form-check-label" for="femmeRadio">Femme</label>
+    </div>
+
+    <small class="text-danger" *ngIf="gender.touched">
+      <ng-container *ngIf="gender.hasError('required')">
+        Veuillez remplir ce champ
+      </ng-container>
+    </small>
+    <div class="row mt-3 col-md-12">
+      <div class="form-group p-2 col-md-4">
+        <label for="firstname">Prénom</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstname"
+          formControlName="firstname"
+          value="{{ studentWithData?.user?.firstname }}"
+        />
+        <small class="text-danger" *ngIf="firstname.touched">
+          <ng-container *ngIf="firstname.hasError('required')">
+            Veuillez remplir ce champ
+          </ng-container>
+        </small>
+      </div>
+      <div class="form-group p-2 col-md-4">
+        <label for="lastname">Nom</label>
+        <input
+          type="text"
+          [disabled]="true"
+          class="form-control"
+          id="lastname"
+          formControlName="lastname"
+          value="{{ studentWithData?.user?.lastname }}"
+        />
+        <small class="text-danger" *ngIf="lastname.touched">
+          <ng-container *ngIf="lastname.hasError('required')">
+            Veuillez remplir ce champ
+          </ng-container>
+        </small>
+      </div>
+      <div class="form-group p-2 col-md-4">
+        <label for="dateOfBirth">Date de naissance</label>
+        <input
+          type="date"
+          class="form-control"
+          id="dateOfBirth"
+          formControlName="dateOfBirth"
+          [ngModel]="studentWithData?.dateOfBirth | date: 'yyyy-MM-dd'"
+          value="{{ studentWithData?.dateOfBirth }} | date: 'yyyy-MM-dd'"
+        />
+        <small class="text-danger" *ngIf="firstname.touched">
+          <ng-container *ngIf="firstname.hasError('required')">
+            Veuillez remplir ce champ
+          </ng-container>
+        </small>
+      </div>
+    </div>
+    <div class="row mt-3 col-md-12">
+      <div class="form-group p-2 col-md-5">
+        <label for="lastname">Email</label>
+        <input
+          type="text"
+          class="form-control"
+          id="email"
+          formControlName="email"
+          value="{{ studentWithData?.user?.email }}"
+        />
+        <small class="text-danger" *ngIf="email.touched">
+          <ng-container *ngIf="email.hasError('required')">
+            Veuillez remplir ce champ
+          </ng-container>
+        </small>
+      </div>
+      <div class="form-group p-2 col-md-4">
+        <label for="socialSecurityNumber">Numéro de sécurité social</label>
+        <input
+          type="number"
+          class="form-control"
+          id="socialSecurityNumber"
+          formControlName="socialSecurityNumber"
+          value="{{ studentWithData?.socialSecurityNumber }}"
+        />
+        <small class="text-danger" *ngIf="socialSecurityNumber.touched">
+          <ng-container *ngIf="socialSecurityNumber.hasError('required')">
+            Veuillez remplir ce champ
+          </ng-container>
+        </small>
+      </div>
+      <div class="form-group p-2 col-md-3">
+        <label for="phoneNumber">Numéro de téléphone</label>
+        <input
+          type="text"
+          class="form-control"
+          id="phoneNumber"
+          formControlName="phoneNumber"
+          value="{{ studentWithData?.phoneNumber }}"
+        />
+        <small class="text-danger" *ngIf="phoneNumber.touched">
+          <ng-container *ngIf="phoneNumber.hasError('required')">
+            Veuillez remplir ce champ
+          </ng-container>
+        </small>
+      </div>
+    </div>
+    <div class="row mt-3 col-md-12">
+      <div class="form-group p-2 col-md-6">
+        <label for="address">Adresse</label>
+        <input
+          type="text"
+          class="form-control"
+          id="address"
+          formControlName="address"
+          value="{{ studentWithData?.address }}"
+        />
+        <small class="text-danger" *ngIf="address.touched">
+          <ng-container *ngIf="address.hasError('required')">
+            Veuillez remplir ce champ
+          </ng-container>
+        </small>
+      </div>
+      <div class="form-group p-2 col-md-4">
+        <label for="city">Ville</label>
+        <input
+          type="text"
+          class="form-control"
+          id="city"
+          formControlName="city"
+          value="{{ studentWithData?.city }}"
+        />
+        <small class="text-danger" *ngIf="city.touched">
+          <ng-container *ngIf="city.hasError('required')">
+            Veuillez remplir ce champ
+          </ng-container>
+        </small>
+      </div>
+      <div class="form-group p-2 col-md-2">
+        <label for="zipcode">Code postal</label>
+        <input
+          type="text"
+          class="form-control"
+          id="zipcode"
+          formControlName="zipcode"
+          value="{{ studentWithData?.zipcode }}"
+        />
+        <small class="text-danger" *ngIf="zipcode.touched">
+          <ng-container *ngIf="zipcode.hasError('required')">
+            Veuillez remplir ce champ
+          </ng-container>
+        </small>
+      </div>
+    </div>
+    <div class="row mt-3 col-md-12">
+      <div class="form-group p-2 col-md-6">
+        <label for="funding">Financement</label>
+        <select id="funding" class="form-select" formControlName="funding">
+          <ng-container *ngFor="let funding of listFunding">
+            <option [value]="funding.name">{{ funding.name }}</option>
+          </ng-container>
+        </select>
+        <small class="text-danger" *ngIf="funding.touched">
+          <ng-container *ngIf="state.hasError('required')">
+            Veuillez remplir ce champ
+          </ng-container>
+        </small>
+      </div>
+      <div class="form-group p-2 col-md-6">
+        <label for="promotion">Promotion</label>
+        <select id="promotion" class="form-select" formControlName="promotion">
+          <ng-container *ngFor="let promotion of listPormotion">
+            <option [value]="promotion.id">{{ promotion.name }}</option>
+          </ng-container>
+        </select>
+        <small class="text-danger" *ngIf="promotion.touched">
+          <ng-container *ngIf="promotion.hasError('required')">
+            Veuillez remplir ce champ
+          </ng-container>
+        </small>
+      </div>
+    </div>
+    <div class="row mt-3 col-md-12">
+      <div class="form-group p-2 col-md-4">
+        <label for="state">Status</label>
+        <select id="state" class="form-select" formControlName="state">
+          <ng-container *ngFor="let state of listState">
+            <option [value]="state.name">{{ state.name }}</option>
+          </ng-container>
+        </select>
+        <small class="text-danger" *ngIf="state.touched">
+          <ng-container *ngIf="state.hasError('required')">
+            Veuillez remplir ce champ
+          </ng-container>
+        </small>
+      </div>
+      <div class="form-group p-2 col-md-4">
+        <label for="dateOfExpulsion">Date d'expulsion</label>
+        <input
+          type="date"
+          class="form-control"
+          id="dateOfExpulsion"
+          formControlName="dateOfExpulsion"
+          [ngModel]="studentWithData?.dateOfExpulsion | date: 'yyyy-MM-dd'"
+          value="{{ studentWithData?.dateOfExpulsion }} | date: 'yyyy-MM-dd'"
+        />
+        <small class="text-danger" *ngIf="dateOfExpulsion.touched">
+          <ng-container *ngIf="dateOfExpulsion.hasError('required')">
+            Veuillez remplir ce champ
+          </ng-container>
+        </small>
+      </div>
+      <div class="form-group p-2 col-md-4">
+        <label for="dateOfDropout">Date d'abandon</label>
+        <input
+          type="date"
+          class="form-control"
+          id="dateOfDropout"
+          formControlName="dateOfDropout"
+          [ngModel]="studentWithData?.dateOfDropout | date: 'yyyy-MM-dd'"
+          value="{{ studentWithData?.dateOfDropout }} | date: 'yyyy-MM-dd'"
+        />
+        <small class="text-danger" *ngIf="dateOfDropout.touched">
+          <ng-container *ngIf="dateOfExpulsion.hasError('required')">
+            Veuillez remplir ce champ
+          </ng-container>
+        </small>
+      </div>
+    </div>
+    <div class="text-center">
+      <button
+        type="button"
+        class="btn btn-primary text-dark btn btn-outline-dark mt-4 mb-3"
+        (click)="formDisabled ? enableForm() : onSubmit()"
+      >
+        {{ formDisabled ? "Modifier" : "Enregistrer" }}
+      </button>
+    </div>
+  </form>
+</div>
+
+<a
+  [routerLink]="['/admin/promotions/' + studentWithData?.promotion?.id]"
+  class="btn-primary text-dark btn btn-outline-dark mt-4 mb-"
+  >Retour</a
+>

@@ -1,0 +1,10 @@
+.formContainer {
+  background-image: url("../../../assets/img/slider-developpeur-web.jpeg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} /*# sourceMappingURL=login.component.css.map */

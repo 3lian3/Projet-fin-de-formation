@@ -1,0 +1,31 @@
+<div class="container">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['.']"
+        >Profil</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        [routerLink]="['attendance']"
+        routerLinkActive="active"
+        >Présence</a
+      >
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['advices']" routerLinkActive="active"
+        >Avis</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        [routerLink]="['document-generate']"
+        routerLinkActive="active"
+        >Document générés</a
+      >
+    </li>
+  </ul>
+  <router-outlet></router-outlet>
+</div>

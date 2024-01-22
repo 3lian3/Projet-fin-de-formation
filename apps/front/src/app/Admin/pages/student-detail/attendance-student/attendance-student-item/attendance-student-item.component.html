@@ -1,0 +1,53 @@
+<div class="table-responsive mt-5">
+  <table class="table table-bordered table-hover text-center">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Matin</th>
+        <th scope="col">Après-midi</th>
+        <th scope="col">Preuve d'absence</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ attendance?.date | date: "dd/MM/yyyy" }}</td>
+        <td>
+          <form [formGroup]="attendanceForm">
+            <select formControlName="morning">
+              <option value="present">Présent</option>
+              <option value="absent">Absent</option>
+            </select>
+          </form>
+        </td>
+        <td>
+          <form [formGroup]="attendanceForm">
+            <select formControlName="afternoon">
+              <option value="present">Présent</option>
+              <option value="absent">Absent</option>
+            </select>
+          </form>
+        </td>
+        <td>{{ attendance?.proofOfAbsence }}</td>
+        <td>
+          <div class="text-center">
+            <button
+              type="button"
+              class="btn btn-primary text-dark btn btn-outline-dark m-3"
+              (click)="enableForm()"
+            >
+              Modifier
+            </button>
+            <button
+              type="submit"
+              (click)="onSubmit(attendance!.id)"
+              class="btn btn-primary text-dark btn btn-outline-dark"
+            >
+              Enregistrer
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

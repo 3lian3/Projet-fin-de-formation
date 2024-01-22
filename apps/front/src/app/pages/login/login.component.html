@@ -1,0 +1,73 @@
+<div class="row formContainer">
+  <div
+    class="container col-4 border border-3 rounded-3 border-dark-subtle mt-5 bg-dark-subtle"
+  >
+    <div class="col-10 offset-md-1">
+      <img
+        src="../../../assets/img/Logosdebase_laNewSchool.svg"
+        class="img-fluid"
+        alt="logo"
+      />
+      <div class="text-center mt-5">
+        <h2>Bienvenue sur votre plateforme de formation</h2>
+      </div>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group mt-4">
+          <label class="form-label" for="email">Email</label>
+          <input
+            class="form-control"
+            type="text"
+            id="email"
+            formControlName="email"
+          />
+          <small class="text-danger" *ngIf="email.touched">
+            <ng-container *ngIf="email.hasError('required')">
+              L'email est obligatoire.
+            </ng-container>
+            <ng-container *ngIf="email.hasError('email')">
+              L'email n'est pas valide.
+            </ng-container>
+          </small>
+        </div>
+        <div class="form-group mt-4">
+          <label class="form-label" for="password">Mot de passe</label>
+          <input
+            class="form-control"
+            type="password"
+            id="password"
+            formControlName="password"
+          />
+          <small
+            class="text-danger"
+            *ngIf="password.touched && password.hasError('required')"
+          >
+            Le mot de passe est obligatoire.
+          </small>
+          <small class="text-danger" *ngIf="invalidEmailOrPassword">
+            Email ou le mot de passe incorrecte
+          </small>
+        </div>
+        <div class="text-center my-4">
+          <button
+            [disabled]="
+              email.hasError('required') ||
+              email.hasError('email') ||
+              password.hasError('required')
+            "
+            class="btn btn-primary text-dark btn btn-outline-dark"
+            type="submit"
+          >
+            Se connecter
+          </button>
+        </div>
+      </form>
+      <div class="text-center my-5">
+        <a
+          class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+          href="../forgot-password"
+          >Mot de passe oublié ?</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

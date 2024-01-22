@@ -1,0 +1,17 @@
+<nav class="Page navigation">
+  <ul class="pagination">
+    <li
+      class="page-item"
+      *ngFor="let l of [].constructor(totalPages); let page = index"
+      [class.active]="currentPage === page + 1"
+    >
+      <a
+        class="page-link"
+        (click)="onPageChange(page + 1)"
+        (keyup)="onPageChange(page + 1)"
+        tabindex="0"
+        >{{ page + 1 }}</a
+      >
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,11 @@
+knp_gaufrette:
+    adapters:
+        students:
+            local:
+                directory: '%kernel.project_dir%/uploads'
+                create: true
+
+    filesystems:
+        students:
+            adapter:    students
+            alias:      studentsfilesystem

@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="text-center mt-4">
+    <h1>
+      Liste des présences de {{ studentWithData?.user?.firstname }}
+      {{ studentWithData?.user?.lastname }}
+    </h1>
+  </div>
+
+  <ng-container *ngIf="listOfAttendance.length === 0">
+    <div class="text-center mt-5">Aucune présence.</div>
+  </ng-container>
+
+  <div *ngFor="let attendanceData of listOfAttendance">
+    <app-attendance-student-item
+      [attendance]="attendanceData"
+    ></app-attendance-student-item>
+  </div>
+</div>

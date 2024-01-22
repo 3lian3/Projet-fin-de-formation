@@ -1,0 +1,26 @@
+{% extends "pdf/base.html.twig" %}
+
+{% block title %}Attestation de scolarité - {{ student.fullName }}{% endblock %}
+	
+{% block body %}
+	<h1>ATTESTATION DE SCOLARITÉ</h1>
+
+	<p>
+		Je, soussignée Gwénaëlle BREMILTS, Présidente de LaNewSchool certifie que <b>{{ student.fullName }}</b> né(e) le {{ student.dateOfBirth|date('d/m/Y') }}, a satisfait aux épreuves de sélection de l'école et est inscrit(e) à la formation XXXXXXX proposée par le centre de formation dénommé <b>LaNewSchool</b>.
+	</p>
+
+	<p>
+		Début de la formation théorique : {{ student.promotion.startDate|date('d/m/Y') }}<br/>
+		Fin de la formation théorique : {{ student.promotion.endDate|date('d/m/Y') }}<br/>
+	</p>
+
+	<p>Lorem Ipsum</p>
+
+	<p>
+		Lieu de formation : Paris
+	</p>
+
+	<p>
+		Fait à Paris, le {{ ''|date('d/m/Y') }}, pour faire valoir ce que de droit.
+	</p>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "pdf/base.html.twig" %}
+
+{% block title %}Attestation de présence - {{ student.fullName }}{% endblock %}
+
+{% block body %}
+	<h1>ATTESTATION DE PRESENCE</h1>
+
+	<p>
+		Je, soussignée Gwénaëlle BREMILTS, Présidente de LaNewSchool certifie que <b>{{ student.fullName }}</b> né(e) le {{ student.dateOfBirth|date('d/m/Y') }}, à été présent(e) tout le mois de {{ ''|date('/m/Y') }} sur la durée des 151 heures de formation réalisées par <b>LaNewSchool</b>.
+
+	</p>
+	<p>
+		Lieu de formation : Paris
+	</p>
+
+	<p>
+		Fait à Paris, le {{ ''|date('d/m/Y') }}, pour faire valoir ce que de droit.
+	</p>
+{% endblock %}

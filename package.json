@@ -1,0 +1,18 @@
+{
+  "name": "lanewschool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "prepare": "husky install"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^8.0.3"
+  },
+  "dependencies": {
+    "cors": "^2.8.5"
+  }
+}

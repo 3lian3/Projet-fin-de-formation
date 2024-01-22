@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {% for file in encore_entry_css_files('pdf') %}
+                <link href="{{ absolute_url(asset(file)) }}" rel="stylesheet" />
+            {% endfor %}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% for file in encore_entry_js_files('pdf') %}
+                <script src="{{ absolute_url(asset(file)) }}" ></script>
+            {% endfor %}
+        {% endblock %}
+    </head>
+    <body>
+        <header>
+        {% block header %}
+            {% include "pdf/_parts/_header.html.twig" %}
+        {% endblock %}
+        </header>
+
+        <main>
+        {% block body %}{% endblock %}
+        </main>
+
+        {% include "pdf/_parts/_page_counter.html.twig" %}
+    
+        <script type="text/php">
+            if ( isset($pdf) ) { 
+                $pdf->page_script('
+                if ($PAGE_COUNT > 1) {
+                    $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal");
+                    $size = 9;
+                    $pageText = "Page " . $PAGE_NUM . " sur " . $PAGE_COUNT;
+                    $y = 810;
+                    $x = 520;
+                    $color = array(0.6, 0.6, 0.6);
+                    $pdf->text($x, $y, $pageText, $font, $size, $color);
+                }
+            ');
+        }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,13 @@
+<div class="container">
+  <h1 class="text-center">
+    Document générés de {{ studentWithData.user.firstname }}
+    {{ studentWithData.user.lastname }}
+  </h1>
+  <app-document-generate
+    [studentWithData]="studentWithData"
+  ></app-document-generate>
+  <app-document-item
+    *ngFor="let documentItem of listOfDocument"
+    [documentItem]="documentItem"
+  ></app-document-item>
+</div>

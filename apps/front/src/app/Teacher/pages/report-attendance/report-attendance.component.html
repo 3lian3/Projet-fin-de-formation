@@ -1,0 +1,176 @@
+<div>
+  <div class="text-center mt-5">
+    <h1>Page de présence</h1>
+  </div>
+
+  <div
+    class="container col-5 border border-3 rounded-3 border-dark-subtle mt-5 bg-dark-subtle"
+  >
+    <div class="col-10 offset-md-1">
+      <div class="text-center mt-5">
+        <h2>Date du jour</h2>
+      </div>
+      <form (ngSubmit)="onSubmit()" [formGroup]="attendanceForm">
+        <ng-container *ngIf="!formDisabled">
+          <div class="text-center mt-5">
+            <p>Matin*</p>
+          </div>
+          <hr />
+          <div class="offset-md-5 form-check mt-4">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="morning"
+              name="morning"
+              value="remote"
+            />
+            Remote
+          </div>
+          <div class="offset-md-5 form-check mt-4">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="morning"
+              name="morning"
+              value="present"
+            />
+            Présent
+          </div>
+          <div class="offset-md-5 form-check mt-4">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="morning"
+              name="morning"
+              value="absent"
+            />
+            Absent
+          </div>
+          <div class="text-center text-danger mt-3">
+            <ng-container *ngIf="submitted && morning.hasError('required')">
+              Veuillez renseigner votre état de présence.
+            </ng-container>
+          </div>
+          <div class="text-center mt-5">
+            <p>Après-midi*</p>
+          </div>
+          <hr />
+          <div class="offset-md-5 form-check mt-4">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="afternoon"
+              name="afternoon"
+              value="remote"
+            />
+            Remote
+          </div>
+          <div class="offset-md-5 form-check mt-4">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="afternoon"
+              name="afternoon"
+              value="present"
+            />
+            Présent
+          </div>
+          <div class="offset-md-5 form-check mt-4">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="afternoon"
+              name="afternoon"
+              value="absent"
+            />
+            Absent
+          </div>
+          <div class="text-center text-danger mt-3">
+            <ng-container *ngIf="submitted && afternoon.pristine">
+              Veuillez renseigner votre état de présence.
+            </ng-container>
+          </div>
+          <hr />
+          <div class="form-group col-md-4 mx-auto text-center">
+            <label for="promotion">Promotion *</label>
+            <select
+              id="promotion"
+              class="form-select"
+              formControlName="promotion"
+            >
+              <option value="" selected disabled>Choisir</option>
+              <ng-container *ngFor="let promotion of promotions">
+                <option [value]="promotion.id">{{ promotion.name }}</option>
+              </ng-container>
+            </select>
+            <small
+              class="text-danger"
+              *ngIf="submitted && promotion.hasError('required')"
+            >
+              La promotion est requise
+            </small>
+          </div>
+          <div class="form-group col-md-4 mx-auto text-center">
+            <label for="promotion">Lessons *</label>
+            <select id="lesson" class="form-select" formControlName="lesson">
+              <option value="" selected disabled>Choisir</option>
+              <ng-container *ngFor="let lesson of lessons">
+                <option [value]="lesson.id">{{ lesson.name }}</option>
+              </ng-container>
+            </select>
+            <small
+              class="text-danger"
+              *ngIf="submitted && promotion.hasError('required')"
+            >
+              La promotion est requise
+            </small>
+          </div>
+          <ng-container
+            *ngIf="afternoon.value === 'absent' || morning.value === 'absent'"
+          >
+            <p class="text-center">
+              Veuillez envoyer le justificatif d'absence par mail a
+              'admin&#64;admin.com' *
+            </p>
+            <div class="form-floating">
+              <textarea
+                class="form-control"
+                formControlName="absence"
+                placeholder="Leave a comment here"
+                id="floatingTextarea2"
+                style="height: 100px"
+              ></textarea>
+              <label for="floatingTextarea2">Motif de l'absence</label>
+            </div>
+            <div class="text-center text-danger mt-3">
+              <ng-container
+                *ngIf="
+                  (afternoon.value === 'absent' ||
+                    morning.value === 'absent') &&
+                  absence.value === '' &&
+                  absence.touched
+                "
+              >
+                Veuillez renseigner votre motif d'absence.
+              </ng-container>
+            </div>
+          </ng-container>
+          <div class="text-center my-4">
+            <button
+              [disabled]="!attendanceForm.valid"
+              class="btn btn-lg col-5 btn-primary text-dark"
+              type="submit"
+            >
+              Valider
+            </button>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="formDisabled">
+          <div class="container text-center">
+            <p>Le formulaire a bien été remplis</p>
+          </div>
+        </ng-container>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="container mt-5">
+  <div class="text-center">
+    <h1>Liste des notes</h1>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <label for="promotion">Promotion</label>
+      <select
+        id="promotion"
+        class="form-select"
+        (change)="onPromotionChange($event)"
+      >
+        <option value="" selected disabled>Choisir</option>
+        <ng-container *ngFor="let promotion of promotions">
+          <option [value]="promotion.id">{{ promotion.name }}</option>
+        </ng-container>
+      </select>
+    </div>
+  </div>
+  <div class="table-responsive mt-5">
+    <table class="table table-bordered table-hover text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Nom et Prénom</th>
+          <th scope="col">Date</th>
+          <th scope="col">Sujet</th>
+          <th scope="col">Note</th>
+          <th scope="col">Commentaires</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="gradeList.length === 0">
+          <td colspan="5">Aucune note</td>
+        </tr>
+
+        <tr *ngFor="let grade of gradeList">
+          <th>
+            {{ grade.firstname }}
+            {{ grade.lastname }}
+          </th>
+          <td>{{ grade.date | date: "dd/MM/yyyy" }}</td>
+          <td *ngIf="grade.examName; else examNameFromExam">
+            {{ grade.examName }}
+          </td>
+          <ng-template #examNameFromExam>{{ grade.exam.name }}</ng-template>
+
+          <td>{{ grade.grade }}</td>
+          <td>{{ grade.appreciation }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-pagination
+  [currentPage]="currentPage"
+  [totalPages]="totalPages"
+  (pageChanged)="loadGradeList($event)"
+></app-pagination>

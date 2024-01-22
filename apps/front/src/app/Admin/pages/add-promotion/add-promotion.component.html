@@ -1,0 +1,60 @@
+<div class="container w-50 mt-5">
+  <h1 class="mb-3 text-center">Ajouter une Promotion</h1>
+
+  <div
+    class="border-3 border-dark-subtle rounded-3 border border-dark border-2 bg-dark-subtle"
+  >
+    <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+      <div class="form-group p-4">
+        <label for="name">Nom de la promo</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          formControlName="name"
+        />
+        <small class="text-danger" *ngIf="name.touched">
+          <ng-container *ngIf="name.hasError('required')">
+            Veuillez nommer la promotion
+          </ng-container>
+        </small>
+      </div>
+      <div class="form-group p-4">
+        <label for="startDate">Date de début</label>
+        <input
+          type="date"
+          class="form-control"
+          id="startDate"
+          formControlName="startDate"
+        />
+        <small class="text-danger" *ngIf="startDate.touched">
+          <ng-container *ngIf="startDate.hasError('required')">
+            Veuillez ajouter une date de début
+          </ng-container>
+        </small>
+      </div>
+      <div class="form-group p-4">
+        <label for="endDate">date de fin</label>
+        <input
+          type="date"
+          class="form-control"
+          id="endDate"
+          formControlName="endDate"
+        />
+        <small class="text-danger" *ngIf="endDate.touched">
+          <ng-container *ngIf="endDate.hasError('required')">
+            Veuillez ajouter une date de fin
+          </ng-container>
+        </small>
+      </div>
+      <div class="text-center">
+        <button
+          type="submit"
+          class="btn btn-primary text-dark btn btn-outline-dark mt-4 mb-3"
+        >
+          Enregistrer
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

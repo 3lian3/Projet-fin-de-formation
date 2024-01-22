@@ -1,0 +1,110 @@
+<div class="container">
+  <div class="text-center mt-4">
+    <h1>Saisir notes d'examen</h1>
+  </div>
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="gradeExamForm" (ngSubmit)="onSubmit()">
+    <div class="table-responsive mt-5">
+      <div class="row">
+        <div class="col-6">
+          <label for="lesson">Cours *</label>
+          <select name="lesson" class="form-select" formControlName="lesson">
+            <option value="" select disabled>Choisir</option>
+            <ng-container *ngFor="let lesson of lessons">
+              <option [value]="lesson.id">{{ lesson.name }}</option>
+            </ng-container>
+          </select>
+          <div *ngIf="submitted && f['lesson'].invalid" class="text-danger">
+            Le cours est requise.
+          </div>
+          <label for="dateOfExam">Date d'examen *</label>
+          <input
+            type="date"
+            class="form-control"
+            id="dateOfExam"
+            formControlName="dateOfExam"
+          />
+          <div *ngIf="submitted && f['dateOfExam'].invalid" class="text-danger">
+            La date d'examen est requise.
+          </div>
+        </div>
+        <div class="col-6">
+          <label for="promotion">Promotion *</label>
+          <select
+            id="promotion"
+            class="form-select"
+            formControlName="promotion"
+            (change)="onPromotionChange($event)"
+          >
+            <option value="" selected disabled>Choisir</option>
+            <ng-container *ngFor="let promotion of promotions">
+              <option [value]="promotion.id">{{ promotion.name }}</option>
+            </ng-container>
+          </select>
+          <div *ngIf="submitted && f['promotion'].invalid" class="text-danger">
+            La promotion est requise.
+          </div>
+          <label for="exam">Sujet *</label>
+          <input
+            type="text"
+            class="form-control"
+            id="exam"
+            formControlName="exam"
+          />
+          <div *ngIf="submitted && f['exam'].invalid" class="text-danger">
+            Le sujet est requise.
+          </div>
+        </div>
+      </div>
+    </div>
+    <table class="text-center table table-responsive mt-5">
+      <thead>
+        <tr>
+          <th scope="col">Nom et prénom</th>
+          <th scope="col">Notes</th>
+          <th scope="col">Commentaires</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <ng-container formArrayName="studentGrades">
+          <tr
+            *ngFor="
+              let gradeGroup of studentGradesArray.controls;
+              let i = index
+            "
+            [formGroupName]="i"
+          >
+            <td *ngIf="selectedPromotionStudents[i]">
+              {{ selectedPromotionStudents[i].user.lastname }}
+              {{ selectedPromotionStudents[i].user.firstname }}
+            </td>
+            <td>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="note"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="comment"
+              />
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <div class="text-center my-4">
+      <button class="btn btn-lg col-5 btn-primary text-dark" type="submit">
+        Valider
+      </button>
+    </div>
+  </form>
+</div>

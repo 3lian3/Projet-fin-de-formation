@@ -1,0 +1,49 @@
+<div class="container mt-5">
+  <div class="text-center">
+    <h1>Liste des avis</h1>
+  </div>
+
+  <div class="table-responsive mt-5">
+    <table class="table table-bordered table-hover text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Nom et Prénom</th>
+          <th scope="col">Semaine</th>
+          <ng-container *ngFor="let question of questions">
+            <th scope="col">{{ question.text }}</th>
+          </ng-container>
+          <th scope="col">Commentaires</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="adviceList.length === 0; else adviceRows">
+          <tr>
+            <td colspan="8">Aucun avis.</td>
+          </tr>
+        </ng-container>
+
+        <ng-template #adviceRows>
+          <tr *ngFor="let advice of adviceList">
+            <th scope="row">
+              {{ advice.student.user.firstname }}
+              {{ advice.student.user.lastname }}
+            </th>
+            <td>{{ advice.date | date: "dd/MM/yyyy" }}</td>
+            <td>{{ getEmoji(advice.question1) }}</td>
+            <td>{{ getEmoji(advice.question2) }}</td>
+            <td>{{ getEmoji(advice.question3) }}</td>
+            <td>{{ getEmoji(advice.question4) }}</td>
+            <td>{{ getEmoji(advice.question5) }}</td>
+            <td>{{ advice.feedback }}</td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-pagination
+  [currentPage]="currentPage"
+  [totalPages]="totalPages"
+  (pageChanged)="loadAdviceList($event)"
+></app-pagination>

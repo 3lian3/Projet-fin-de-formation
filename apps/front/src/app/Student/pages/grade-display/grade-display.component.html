@@ -1,0 +1,29 @@
+<div class="container mt-5">
+  <div class="text-center">
+    <h1>Mes notes</h1>
+  </div>
+  <table class="text-center table table-responsive mt-5">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Notes</th>
+        <th scope="col">Sujet</th>
+        <th scope="col">appréciations</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      <tr *ngFor="let grade of grades">
+        <td>{{ grade.date | date: "dd/MM/yyyy" }}</td>
+        <td>{{ grade.grade }}</td>
+        <td>{{ grade.exam.name }}</td>
+        <td>{{ grade.appreciation }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-pagination
+  [currentPage]="currentPage"
+  [totalPages]="totalPages"
+  (pageChanged)="loadAllGrades($event)"
+></app-pagination>

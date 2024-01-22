@@ -1,0 +1,27 @@
+$yellow: #edbb40;
+$primary: $yellow;
+
+/* Importing Bootstrap SCSS file. */
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons";
+
+div {
+  font-family: "Roboto", sans-serif;
+}
+
+.btn.text-dark:hover {
+  color: white !important;
+}
+
+.btn.btn-outline-dark:hover {
+  color: white !important;
+}
+
+.btn.btn-outline-dark {
+  color: black !important;
+}
+
+.page-container {
+  height: 100vh;
+  padding-left: 0;
+}

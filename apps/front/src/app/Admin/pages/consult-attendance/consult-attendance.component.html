@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="text-center mt-4">
+    <h1>Liste des présences</h1>
+  </div>
+  <div class="table-responsive mt-5">
+    <table class="table table-bordered table-hover text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Cours</th>
+          <th scope="col">Promotion</th>
+          <th scope="col">Professeur</th>
+          <th scope="col">Élèves répondants</th>
+          <th scope="col">Élèves non répondants</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let attendanceData of data">
+          <td>{{ attendanceData.date }}</td>
+          <td>{{ attendanceData.lesson }}</td>
+          <td>{{ attendanceData.promotion }}</td>
+          <td>{{ attendanceData.teacher }}</td>
+          <td>
+            {{ attendanceData.presentStudentsCount }} /
+            {{
+              attendanceData.presentStudentsCount +
+                attendanceData.absentStudentsNames.length
+            }}
+          </td>
+          <td>
+            <ng-container
+              *ngFor="let user of attendanceData.absentStudentsNames"
+            >
+              - {{ user.firstname }} {{ user.lastname }} <br />
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

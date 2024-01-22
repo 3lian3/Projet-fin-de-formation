@@ -1,0 +1,45 @@
+<div class="container">
+  <table class="text-center table table-responsive mt-5">
+    <thead>
+      <tr>
+        <th scope="col">Nom et prénom</th>
+        <th scope="col">Promotion</th>
+        <th scope="col">Email</th>
+        <th *ngIf="currentUser?.roles?.includes('ROLE_ADMIN')" scope="col">
+          Detail
+        </th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      <ng-container *ngIf="promotion">
+        <tr *ngFor="let student of promotion.students">
+          <td>{{ student.user.lastname }} {{ student.user.firstname }}</td>
+          <td>{{ promotion.name }}</td>
+          <td>{{ student.user.email }}</td>
+          <td>
+            <a
+              *ngIf="currentUser?.roles?.includes('ROLE_ADMIN')"
+              [routerLink]="['/admin/student-detail/', student.id]"
+              class="btn btn-primary text-dark btn btn-outline-dark m-1"
+              >Detail</a
+            >
+          </td>
+        </tr>
+      </ng-container>
+      <ng-container
+        *ngIf="
+          !promotion || !promotion.students || promotion.students.length === 0
+        "
+      >
+        <tr>
+          <td colspan="3">Aucun étudiant dans cette promotion.</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+<a
+  [routerLink]="['/admin/promotions']"
+  class="btn btn-primary text-dark btn btn-outline-dark m-1"
+  >Retour</a
+>

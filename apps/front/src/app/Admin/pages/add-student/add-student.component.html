@@ -1,0 +1,343 @@
+<div class="text-center mt-5">
+  <h1>Ajouter un étudiant</h1>
+</div>
+
+<form
+  class="container col-10 border border-dark border-2 p-3 rounded-4 shadow mt-5 bg-dark-subtle"
+  [formGroup]="addForm"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="row d-flex justify-content-center">
+    <div class="row mt-3">
+      <div class="form-group col-md-2">
+        <label for="gender">Genre *</label>
+
+        <div class="form-check">
+          <input
+            required
+            type="radio"
+            id="hommeRadio"
+            value="Homme"
+            class="form-check-input"
+            formControlName="gender"
+          />
+          <label class="form-check-label" for="hommeRadio">Homme</label>
+        </div>
+
+        <div class="form-check">
+          <input
+            required
+            type="radio"
+            id="femmeRadio"
+            value="Femme"
+            class="form-check-input"
+            formControlName="gender"
+          />
+          <label class="form-check-label" for="femmeRadio">Femme</label>
+        </div>
+
+        <small
+          class="text-danger"
+          *ngIf="submitted && gender.hasError('required')"
+        >
+          Le genre est requis
+        </small>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="lastname">Nom *</label>
+        <input
+          required
+          type="text"
+          class="form-control"
+          id="lastname"
+          formControlName="lastname"
+        />
+        <small
+          class="text-danger"
+          *ngIf="submitted && lastname.hasError('required')"
+        >
+          Le nom est requis
+        </small>
+        <small
+          class="text-danger"
+          *ngIf="lastname.touched && lastname.hasError('lettersOnly')"
+        >
+          Le nom doit comporter que des lettres
+        </small>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="firstname">Prénom *</label>
+        <input
+          required
+          type="text"
+          class="form-control"
+          id="firstname"
+          formControlName="firstname"
+        />
+        <small
+          class="text-danger"
+          *ngIf="submitted && firstname.hasError('required')"
+        >
+          Le prénom est requis
+        </small>
+        <small
+          class="text-danger"
+          *ngIf="firstname.touched && firstname.hasError('lettersOnly')"
+        >
+          Le nom doit comporter que des lettres
+        </small>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="dateOfBirth">Date de naissance *</label>
+        <input
+          required
+          type="date"
+          class="form-control"
+          id="dateOfBirth"
+          formControlName="dateOfBirth"
+        />
+        <small
+          class="text-danger"
+          *ngIf="submitted && dateOfBirth.hasError('required')"
+        >
+          La date de naissance est requise
+        </small>
+      </div>
+      <div class="row mt-3 col-md-12">
+        <div class="form-group col-md-4">
+          <label for="socialSecurityNumber">Numéro de sécurité sociale *</label>
+          <input
+            required
+            type="number"
+            class="form-control"
+            id="socialSecurityNumber"
+            formControlName="socialSecurityNumber"
+          />
+          <small
+            class="text-danger"
+            *ngIf="submitted && socialSecurityNumber.hasError('required')"
+          >
+            Le numéro de sécurité sociale est requis
+          </small>
+          <small
+            class="text-danger"
+            *ngIf="
+              submitted &&
+              socialSecurityNumber.hasError('SocialSecurityNumberInvalid')
+            "
+          >
+            Le numéro doit commencer par 1 ou 2 et faire 15 caractères
+          </small>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="email">Adresse mail *</label>
+          <input
+            required
+            type="email"
+            class="form-control"
+            id="email"
+            formControlName="email"
+          />
+
+          <small
+            class="text-danger"
+            *ngIf="submitted && email.hasError('required')"
+          >
+            L'adresse mail est requise
+          </small>
+          <small
+            class="text-danger"
+            *ngIf="email.touched && email.hasError('email')"
+          >
+            Veuillez entrer une adresse mail valide
+          </small>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="phoneNumber">Téléphone *</label>
+          <input
+            required
+            type="tel"
+            class="form-control"
+            formControlName="phoneNumber"
+            pattern="0[0-9]{9}"
+            maxlength="10"
+          />
+          <small
+            class="text-danger"
+            *ngIf="submitted && phoneNumber.hasError('required')"
+          >
+            Le numéro de téléphone est requis
+          </small>
+          <small
+            class="text-danger"
+            *ngIf="phoneNumber.touched && phoneNumber.hasError('pattern')"
+          >
+            Veuillez saisir un numéro de téléphone valide commençant par 0 suivi
+            de 9 chiffres
+          </small>
+          <small
+            class="text-danger"
+            *ngIf="phoneNumber.touched && phoneNumber.hasError('maxlength')"
+          >
+            Le numéro de téléphone ne doit pas dépasser 10 chiffres
+          </small>
+
+          <br />
+          <small
+            class="text-danger"
+            *ngIf="
+              phoneNumber.touched &&
+              phoneNumber.hasError('frenchPhoneNumberInvalid')
+            "
+          >
+            Format de numéro non valide
+          </small>
+        </div>
+      </div>
+      <div class="row mt-3 mt-2">
+        <div class="form-group col-4">
+          <label for="address">Adresse *</label>
+          <input
+            required
+            type="text"
+            class="form-control"
+            id="address"
+            placeholder="Veuillez entrer l'adresse"
+            name="address"
+            formControlName="address"
+          />
+          <small
+            class="text-danger"
+            *ngIf="submitted && address.hasError('required')"
+          >
+            L'adresse est requise
+          </small>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="zipcode">Code Postal *</label>
+          <input
+            required
+            type="number"
+            class="form-control"
+            id="zipcode"
+            formControlName="zipcode"
+          />
+          <small
+            class="text-danger"
+            *ngIf="submitted && zipcode.hasError('required')"
+          >
+            Le code postal est requis
+          </small>
+          <small
+            class="text-danger"
+            *ngIf="submitted && zipcode.hasError('numberVerify')"
+          >
+            Le numéro doit comporter seulement des chiffres
+          </small>
+          <small
+            class="text-danger"
+            *ngIf="submitted && zipcode.hasError('lengthVerify')"
+          >
+            Le numéro doit faire 5 caractères et doit comporter seulement
+          </small>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="city">Ville *</label>
+          <input
+            required
+            type="text"
+            class="form-control"
+            id="city"
+            formControlName="city"
+          />
+          <small
+            class="text-danger"
+            *ngIf="submitted && city.hasError('required')"
+          >
+            La ville est requise
+          </small>
+          <small
+            class="text-danger"
+            *ngIf="city.touched && city.hasError('lettersOnly')"
+          >
+            La ville doit comporter que des lettres
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3 mt-2">
+      <div class="form-group col-md-4">
+        <label for="state">Statut *</label>
+        <select id="state" class="form-select" formControlName="state">
+          <option value="" selected disabled>Choisir</option>
+          <ng-container *ngFor="let state of states">
+            <option [value]="state.name">{{ state.name }}</option>
+          </ng-container>
+        </select>
+        <small
+          class="text-danger"
+          *ngIf="submitted && state.hasError('required')"
+        >
+          Le statut est requis
+        </small>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="promotion">Promotion *</label>
+        <select id="promotion" class="form-select" formControlName="promotion">
+          <option value="" selected disabled>Choisir</option>
+          <ng-container *ngFor="let promotion of promotions">
+            <option [value]="promotion.id">{{ promotion.name }}</option>
+          </ng-container>
+        </select>
+        <small
+          class="text-danger"
+          *ngIf="submitted && promotion.hasError('required')"
+        >
+          La promotion est requise
+        </small>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="funding">Financement *</label>
+        <select id="funding" class="form-select" formControlName="funding">
+          <option value="" selected disabled>Choisir</option>
+          <ng-container *ngFor="let funding of fundings">
+            <option [value]="funding.name">{{ funding.name }}</option>
+          </ng-container>
+        </select>
+        <small
+          class="text-danger"
+          *ngIf="submitted && funding.hasError('required')"
+        >
+          Le financement est requis
+        </small>
+      </div>
+    </div>
+
+    <div class="row mt-3 mt-2">
+      <div class="form-group col-md-6">
+        <label for="dateOfExpulsion">Date d'exclusion</label>
+        <input type="date" class="form-control" id="dateOfExpulsion" />
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="dateOfDropout">Date d'abandon</label>
+        <input
+          type="date"
+          class="form-control"
+          name="dateOfDropout"
+          id="dateOfDropout"
+        />
+      </div>
+      <div class="d-flex justify-content-end mt-4">* Champs Obligatoires</div>
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary text-dark btn btn-outline-dark mt-3 col-2 mt-5 mb-5"
+    >
+      Ajouter
+    </button>
+  </div>
+</form>

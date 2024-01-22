@@ -1,0 +1,84 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+if ! head -n1 "$1" | grep -q "^\(fix/LNS-\|feat/LNS-\|hot-fix\)"; then
+	echo ""
+	echo "==== Commit stoppé : nommage incorrect ===="
+	echo ""
+	echo "Les messages de commit doivent tous commencer par : "
+	echo "- fix/  suivi du numéro de ticket Jira (LNS-001) pour les correctifs et de votre message"
+	echo "- feat/ suivi du numéro de ticket Jira (LNS-001) pour les nouvelles features et de votre message"
+	echo "- hot-fix et de votre message"
+	echo ""
+	echo ""
+	exit 1
+fi
+
+SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
+
+## Php cs fixer
+cd $SCRIPT_DIR
+cd ../apps/api
+symfony php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix src --dry-run --diff
+
+status=$?
+if test $status -eq 0
+then
+	echo "php-cs-fixer OK"
+else
+	echo "php-cs-fixer KO"
+	exit 1
+fi
+
+# Phpstan
+cd $SCRIPT_DIR
+cd ../apps/api
+symfony php -d memory_limit=-1 vendor/phpstan/phpstan/phpstan analyse -c ../../.husky/phpstan-conf.neon --memory-limit 1G
+status=$?
+
+if test $status -eq 0
+then
+	echo "phpstan OK"
+else
+	echo "phpstan KO"
+	exit 1
+fi
+
+# Rector
+cd $SCRIPT_DIR
+cd ../apps/api
+symfony php -d memory_limit=-1 vendor/bin/rector process src --dry-run
+status=$?
+
+if test $status -eq 0
+then
+	echo "rector OK"
+else
+	echo "rector KO"
+	exit 1
+fi
+
+# prettier front
+cd $SCRIPT_DIR
+cd ../apps/front
+echo "front check prettier"
+if npm run prettier-check
+then
+	echo "front prettier OK"
+else
+	echo "front prettier KO"
+	exit 1
+fi
+
+# Lint front
+cd $SCRIPT_DIR
+cd ../apps/front
+ng lint
+status=$?
+if test $status -eq 0
+then
+	echo "front lint OK"
+else
+	echo "front lint KO"
+	exit 1
+fi

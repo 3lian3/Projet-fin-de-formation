@@ -1,0 +1,7 @@
+{
+    "require": {
+        "dompdf/dompdf": "^2.0",
+        "twig/twig": "^3.8",
+        "knplabs/knp-gaufrette-bundle": "^0.9.0"
+    }
+}
